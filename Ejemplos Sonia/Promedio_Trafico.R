@@ -13,12 +13,11 @@ initData$prom <- round(initData$prom, 1)
 
 
 #Gráfica
-grafica <- ggplot(initData, aes(x=factor(dia_semana), y=prom, fill = factor(dia_semana))) + 
+grafica <- ggplot(initData, aes(x=dia_semana, y=prom, fill = dia_semana)) + 
   stat_summary(fun.y="mean", geom="bar") +
-  
   aes(label = prom) +
   labs(title = "Promedio de carros", x = "Dia de la semana", y = "Promedio de autos", fill = "Dia de la semana") +
-  theme(panel.background = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+  theme(panel.background = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.ticks.x = element_blank())
 
 
 
