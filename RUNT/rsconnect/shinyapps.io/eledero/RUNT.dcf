@@ -1,0 +1,11 @@
+name: RUNT
+title: RUNT
+account: eledero
+server: shinyapps.io
+appId: 170491
+bundleId: 786067
+url: https://eledero.shinyapps.io/RUNT/
+when: 1491959298.88829
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: base_runt.csv|.RData|runt.R
