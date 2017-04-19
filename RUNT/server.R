@@ -16,78 +16,96 @@ shinyServer(function(input, output) {
   
   
   filedata <- reactive({
-    inFile1 <- input$file1
-    if (is.null(inFile1)) {
-      # User has not uploaded a file yet
-      return(NULL)
-    }
-    read.csv(inFile1$datapath, sep = ";")
+     initData <- read.csv("base_runt.csv", sep = ";")
     
   })
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+    
   
   dataGen <- reactive({ 
-  
+    
     
     initData <- filedata()
     
-    if (is.null(initData)){
-      
-      return(NULL)
-      
-    }
+    
     #Declaración de funciones
     firstup <- function(x) {
       substr(x, 1, 1) <- toupper(substr(x, 1, 1))
       x
     }
-  
-  
-  #Fechas inicial y final
-  fechaIni <- as.Date(input$date1)
-  fechaFin <- as.Date(input$date2)
-  
-  #Procesamiento de datos para fecha
-  initData$month <- firstup(unique(tolower(initData$MONTH_)))
-  conv <- data.frame(month = firstup(unique(tolower(initData$MONTH_))),
-                     monthNum = 1:length(firstup(unique(tolower(initData$MONTH_)))))
-  initData <- merge(initData, 
-                    conv, 
-                    by = "month") 
-  initData$date <- as.Date(paste(initData$ANO, 
-                                 initData$monthNum, 
-                                 "01", 
-                                 sep = "/"), 
-                           format = "%Y/%m/%d")
-  
-  #Filtrado por fechas
-  initData <- initData[initData$date >= fechaIni, ]
-  initData <- initData[initData$date <= fechaFin, ]
-  
-  list(initData, 
-       unique(initData$MARCA),
-       unique(initData$DEPARTAMENTO),
-       unique(initData$SERVICIO),
-       unique(initData$STATUS),
-       unique(initData$SEGMENTO),
-       unique(initData$NACIONAL_IMPORT)
-       
-  )
+    
+    
+    #Fechas inicial y final
+    fechaIni <- as.Date(input$date1)
+    fechaFin <- as.Date(input$date2)
+    
+    #Procesamiento de datos para fecha
+    initData$month <- firstup(unique(tolower(initData$MONTH_)))
+    conv <- data.frame(month = firstup(unique(tolower(initData$MONTH_))),
+                       monthNum = 1:length(firstup(unique(tolower(initData$MONTH_)))))
+    initData <- merge(initData, 
+                      conv, 
+                      by = "month") 
+    initData$date <- as.Date(paste(initData$ANO, 
+                                   initData$monthNum, 
+                                   "01", 
+                                   sep = "/"), 
+                             format = "%Y/%m/%d")
+    
+    #Filtrado por fechas
+    initData <- initData[initData$date >= fechaIni, ]
+    initData <- initData[initData$date <= fechaFin, ]
+    
+    if(!is.null(input$brand)){
+      
+      initData <- initData[(initData$MARCA %in% input$brand), ]
+      
+    } 
+    
+    if(!is.null(input$department)){
+      
+      initData <- initData[(initData$DEPARTAMENTO %in% input$department), ]
+      
+    } 
+    
+    if(!is.null(input$service)){
+      
+      initData <- initData[(initData$SERVICIO %in% input$service), ]
+      
+    }
+    
+    if (!is.null(input$status)){
+      
+      initData <- initData[(initData$STATUS %in% input$status), ]
+      
+    } 
+    
+    if (!is.null(input$segment)){
+      
+      initData <- initData[(initData$SEGMENTO %in% input$segment), ]
+      
+    } 
+    
+    if (!is.null(input$origin)){
+      
+      initData <- initData[(initData$NACIONAL_IMPORT %in% input$origin), ]
+      
+    } 
+    
+    
+    
+    list(initData, 
+         unique(initData$MARCA),
+         unique(initData$DEPARTAMENTO),
+         unique(initData$SERVICIO),
+         unique(initData$STATUS),
+         unique(initData$SEGMENTO),
+         unique(initData$NACIONAL_IMPORT),
+         input$brand
+    )
     
   })
-
   
   
-    
   output$Plot1 <- renderPlot({
     
     #Alistamiento de datos para gráfica
@@ -101,9 +119,9 @@ shinyServer(function(input, output) {
                      aes(x = MODELO, 
                          y = total, 
                          color = MARCA)) + 
-              geom_line() +
-              theme_bw() + 
-              theme(legend.position="bottom") 
+      geom_line() +
+      theme_bw() + 
+      theme(legend.position="bottom") 
     
     #Despliegue de gráfica
     graph1
@@ -111,63 +129,6 @@ shinyServer(function(input, output) {
   })
   
   
-  
-  observe({
-    updateSelectizeInput('brand', 
-                         choices = as.character(dataGen()[[2]]))
-  })
-  
-  
-    
-  #output$selectUIMarca <- renderUI({ 
-    
-   # selectizeInput("brand", 
-    #               "Marca(s)", 
-     #              as.character(dataGen()[[2]]), 
-      #             multiple = TRUE)
-  #})
-  
-  
-  output$selectUIDpto <- renderUI({ 
-    
-    selectizeInput("department", 
-                   "Departamento(s)", 
-                   as.character(dataGen()[[3]]), 
-                   multiple = TRUE)
-  })
-  
-  output$selectUIServ <- renderUI({ 
-    
-    selectizeInput("service", 
-                   "Servicios", 
-                   as.character(dataGen()[[4]]), 
-                   multiple = TRUE)
-  })
-  
-  
-  output$selectUIStat<- renderUI({ 
-    
-    selectizeInput("status", 
-                   "Status", 
-                   as.character(dataGen()[[5]]), 
-                   multiple = TRUE)
-  })
-  
-  output$selectUISegm<- renderUI({ 
-    
-    selectizeInput("segment", 
-                   "Segmento", 
-                   as.character(dataGen()[[6]]), 
-                   multiple = TRUE)
-  })
-  
-  output$selectUIOrig<- renderUI({ 
-    
-    selectizeInput("origin", 
-                   "Origen", 
-                   as.character(dataGen()[[7]]), 
-                   multiple = TRUE)
-  })
   
   
   output$Plot2 <- renderPlot({
@@ -194,26 +155,19 @@ shinyServer(function(input, output) {
   
   
   output$table <- renderTable({
-    data.frame(x=dataGen()[[1]])
+      
+    #filedata()
+    data.frame(dataGen()[[1]])
+    })
+  
+  
+  
+  output$textie <- renderPrint({
+    dataGen()[[1]]
+#    input$brand
+    
   })
   
-  output$values <- renderPrint({
-    
-    
-    list(x1 = input$brand)
-    
-    #str(sapply(sprintf('e%d', 0:10), function(id) {
-     # input[[id]]
-    #}, simplify = FALSE))
-    
-    #htmlOutput("selectUIServ"),
-    #htmlOutput("selectUIStat"),
-    #htmlOutput("selectUISegm"),
-    #htmlOutput("selectUIOrig"),
-    
-    
-    
-  })
   
   
 })
