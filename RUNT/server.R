@@ -56,6 +56,12 @@ shinyServer(function(input, output, session) {
                                    sep = "/"), 
                              format = "%Y/%m/%d")
     
+    #Filtrado por fechas INICIAL
+    initData <- initData[initData$date <= as.Date("2010/04/02", format = "%Y/%m/%d"), ]
+    #initData <- initData[initData$date <= fechaFin, ]
+    
+    
+    
     #Filtrado por fechas
     initData <- initData[initData$date >= fechaIni, ]
     initData <- initData[initData$date <= fechaFin, ]
