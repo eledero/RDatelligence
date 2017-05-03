@@ -1,12 +1,12 @@
 shinyUI(fluidPage(
-  titlePanel("Reporte de archivo RUNT."),
+  titlePanel("RUNT Viz"),
   sidebarLayout(
     sidebarPanel(
       
       dateInput("date1", "Fecha de inicio del análisis:", value = "2000-01-01"),
       dateInput("date2", "Fecha de fin del análisis:", value = "2020-01-01"),
       
-      selectInput("field", "Campo a analizar",  NULL, multiple = FALSE),
+      selectInput("field", "Selecciona la variable:", NULL, multiple = FALSE),
       
       selectizeInput("brand", "Marca(s)", NULL, multiple = TRUE, options = list(maxItems = 5)),
       
@@ -17,10 +17,10 @@ shinyUI(fluidPage(
       selectizeInput("status", "Status", NULL, multiple = TRUE, options = list(maxItems = 5)),
       
       selectizeInput("segment", "Segmento", NULL, multiple = TRUE, options = list(maxItems = 5)),
-      
+        
       selectizeInput("origin", "Origen", NULL, multiple = TRUE, options = list(maxItems = 5)),
       
-      selectInput("context", "Variable de contexto", NULL, multiple = FALSE, choices = c("Dolar", "Gasolina", "Petroleo", "Confianza", "Desempleo")),
+      selectInput("context", "Variable de contexto", NULL, multiple = FALSE, choices = c("Dolar", "Gasolina", "Petroleo", "Confianza", "Desempleo", "Precipitacion")),
       #htmlOutput("field"),
       #htmlOutput("brand"),
       #htmlOutput("department"),

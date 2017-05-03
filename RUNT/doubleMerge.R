@@ -29,6 +29,12 @@ output$Plot3 <- renderPlot({
   }
   
   
+  if((input$context) == "Precipitacion"){
+    source("precipitacion.R", local = TRUE)
+    df1 <- df
+    nam <- c("precipitacion (cc)", "Unidades vendidas")
+  }
+  
  
   
   
