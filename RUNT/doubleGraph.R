@@ -13,7 +13,7 @@ p <- p + scale_y_continuous(sec.axis = sec_axis(~.*scalFact, name = nams[2])) + 
 
 # modifying colours and theme options
 p <- p + scale_colour_manual(values = c("blue", "red"), labels = c(nams[2], nams[1]))
-p <- p + labs(y = nams[1], x = "Fecha", colour = "") + theme(legend.position="bottom")
+p <- p + labs(y = nams[1], x = "Fecha", colour = "", caption = nams[3]) + theme(legend.position="bottom")
 
 p
 
