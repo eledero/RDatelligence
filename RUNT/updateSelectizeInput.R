@@ -1,4 +1,4 @@
-updateSelectizeInput(session, "field", choices = read.csv("nombres.csv", sep = ",")[, 2], server = TRUE)
+updateSelectizeInput(session, "field", choices = read.csv("nombres.csv", sep = ",")[, 2], server = TRUE, selected = "Marca")
 updateSelectizeInput(session, "brand", choices = read.csv("base_runt.csv", sep = ";")[, "MARCA"], server = TRUE)
 updateSelectizeInput(session, "department", choices = read.csv("base_runt.csv", sep = ";")[, "DEPARTAMENTO"], server = TRUE)
 updateSelectizeInput(session, "service", choices = read.csv("base_runt.csv", sep = ";")[, "SERVICIO"], server = TRUE)
