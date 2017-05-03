@@ -1,21 +1,9 @@
-install.packages("ggthemes")
-
-library(ggplot2)
-library(gtable)
-library(grid)
-library(ggthemes)
 
 data <- read.csv("dataoil.csv", TRUE)
 
 data$date <- as.character(data$date)
 data$date <- as.Date(data$date)
-data["pres"] <- c("a")
-data[(data$date > as.Date("2002-08-07")) & (data$date <= as.Date("2010-08-07")), "pres"] <- "Uribe"
-data[(data$date > as.Date("2010-08-07")), "pres"] <- "Santos"
 
-data <- data[data$pres != "a", ]
-
-names(data) <- c("Date", "WTI_oil_price", "exchange_rate", "presidente")
 
 grid.newpage()
 

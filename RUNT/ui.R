@@ -19,6 +19,8 @@ shinyUI(fluidPage(
       selectizeInput("segment", "Segmento", NULL, multiple = TRUE, options = list(maxItems = 5)),
       
       selectizeInput("origin", "Origen", NULL, multiple = TRUE, options = list(maxItems = 5)),
+      
+      selectInput("context", "Variable de contexto", NULL, multiple = FALSE, choices = c("Dolar", "Gasolina", "Petroleo", "Confianza", "Desempleo")),
       #htmlOutput("field"),
       #htmlOutput("brand"),
       #htmlOutput("department"),
@@ -79,6 +81,8 @@ shinyUI(fluidPage(
         tabsetPanel(
           tabPanel("Evolución", plotOutput("Plot1", height = "400px", width = "600px")), 
           tabPanel("Market Share", plotOutput("Plot2", height = "400px", width = "600px"), tableOutput("table2")),
+          tabPanel("Contexto", plotOutput("Plot3", height = "400px", width = "600px")),
+          tabPanel("Variación", plotOutput("Plot4", height = "400px", width = "600px")),
           tabPanel("Tabla original RUNT", tableOutput("table1")),
           tabPanel("Summary", verbatimTextOutput("textie"))
           

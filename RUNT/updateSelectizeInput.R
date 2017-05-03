@@ -1,0 +1,7 @@
+updateSelectizeInput(session, "field", choices = read.csv("nombres.csv", sep = ",")[, 2], server = TRUE)
+updateSelectizeInput(session, "brand", choices = read.csv("base_runt.csv", sep = ";")[, "MARCA"], server = TRUE)
+updateSelectizeInput(session, "department", choices = read.csv("base_runt.csv", sep = ";")[, "DEPARTAMENTO"], server = TRUE)
+updateSelectizeInput(session, "service", choices = read.csv("base_runt.csv", sep = ";")[, "SERVICIO"], server = TRUE)
+updateSelectizeInput(session, "status", choices = read.csv("base_runt.csv", sep = ";")[, "STATUS"], server = TRUE)
+updateSelectizeInput(session, "segment", choices = read.csv("base_runt.csv", sep = ";")[, "SEGMENTO"], server = TRUE)
+updateSelectizeInput(session, "origin", choices = read.csv("base_runt.csv", sep = ";")[, "NACIONAL_IMPORT"], server = TRUE)
