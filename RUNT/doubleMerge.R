@@ -10,10 +10,16 @@ output$Plot3 <- renderPlot({
  }
   
 
-  if((input$context) == "Petroleo"){
-    source("petroleo.R", local = TRUE)
+  if((input$context) == "Petroleo (WTI)"){
+    source("petroleo_WTI.R", local = TRUE)
     df1 <- df
     nam <- c("Precio barril Petroleo WTI (USD/barril)", "Unidades vendidas", "Fuente: Yahoo.")
+  }
+  
+  if((input$context) == "Petroleo (Brent)"){
+    source("petroleo_Brent.R", local = TRUE)
+    df1 <- df
+    nam <- c("Precio barril Petroleo Brent (USD/barril)", "Unidades vendidas", "Fuente: Yahoo.")
   }
   
   if((input$context) == "Confianza"){
