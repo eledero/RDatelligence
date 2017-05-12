@@ -1,7 +1,7 @@
 shinyUI(
   fluidPage(
     #img(src="logo_datelligence-2016.png", align = "right", width = "150px"),
-  #titlePanel("RUNT Viz"),
+  
   sidebarLayout(
     sidebarPanel(
       
@@ -87,7 +87,7 @@ shinyUI(
           tabPanel("Evolución", plotOutput("Plot1", height = "400px", width = "600px")), 
           tabPanel("Contexto", plotOutput("Plot3", height = "400px", width = "600px")),
           tabPanel("Variación", plotOutput("Plot4", height = "400px", width = "600px")),
-          tabPanel("Tabla original RUNT", tableOutput("table1")),
+          tabPanel("Tabla original", tableOutput("table1")),
           tabPanel("Summary", verbatimTextOutput("textie"))
           
         )
