@@ -1,0 +1,17 @@
+---
+title: "Reporte DataViz"
+output: pdf_document
+params:
+  n: NA
+  a: NA
+---
+
+
+
+
+```{r, eval=T, echo=F}
+library(ggplot2)
+#plot(rnorm(params$n), rnorm(params$n))
+
+params$a
+```

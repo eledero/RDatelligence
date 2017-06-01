@@ -20,6 +20,7 @@ shinyServer(function(input, output, session) {
   source("doubleMerge.R", local = TRUE)
   source("variation.R", local = TRUE)
   source("varGraph.R", local = TRUE)
+  source("report.R", local = TRUE)
   
   
   
