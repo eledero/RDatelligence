@@ -84,7 +84,11 @@ shinyUI(
         
         tabsetPanel(
           tabPanel("Market Share", plotOutput("Plot2", height = "400px", width = "600px")),#  downloadButton("report", "Generar reporte"), tableOutput("table2")),
-          tabPanel("Genere su reporte",  downloadButton("report", "Generar reporte")),
+          tabPanel("Genere su reporte", selectInput("report1", "Selecciona el reporte # 1:", NULL, multiple = FALSE),
+                   selectInput("report2", "Selecciona el reporte # 2:", NULL, multiple = FALSE), 
+                   selectInput("report3", "Selecciona el reporte # 3:", NULL, multiple = FALSE),
+                   selectInput("report4", "Selecciona el reporte # 4:", NULL, multiple = FALSE), 
+                   downloadButton("report", "Generar reporte")),
           tabPanel("Evolución", plotOutput("Plot1", height = "400px", width = "600px")), 
           tabPanel("Contexto", plotOutput("Plot3", height = "400px", width = "600px")),
           tabPanel("Variación", plotOutput("Plot4", height = "400px", width = "600px")),

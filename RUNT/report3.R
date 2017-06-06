@@ -1,88 +1,116 @@
+df <- data.frame(dataGen()[[1]])
 
 
-initData <- filedata()
-#nam <- nombres()
 
-#Declaración de funciones
-firstup <- function(x) {
-  substr(x, 1, 1) <- toupper(substr(x, 1, 1))
-  x
+
+
+st <- as.Date("2010-1-1")
+en <- as.Date("2010-4-2")
+ll <- data.frame(date = seq(st, en, by = "1 day"))
+
+filter1 <- group_by(df, date)
+
+df <- summarize(filter1, cantidad = sum(CANTIDAD))
+
+complet <- function(x){
+  
+  for (i in 1:length(x)){
+    
+    if(is.na(x[i])){
+      
+      #print(is.na(x[i]))
+      
+      
+      x[i] <- x[i-1]
+      
+      #print(x[i])
+      
+      
+    }
+    
+  }
+  
+  return(x)
+}
+
+#petrol[, 1] <- complet(petrol[, 1])
+
+st <- as.Date("2010-1-1")
+en <- as.Date("2010-4-2")
+ll <- data.frame(date = seq(st, en, by = "1 day"))
+
+df <- merge(x = ll, y = df, by = "date", all.x = TRUE)
+
+df[, 2] <- complet(df[, 2])
+
+
+
+
+
+if((input$context) == "Dolar"){
+  source("dolar.R", local = TRUE)
+  df1 <- df
+  nam <- c("Tasa de Cambio USD-COP", "Unidades vendidas", "Fuente: Banco de la República de Colombia.")
 }
 
 
-#Fechas inicial y final
-fechaIni <- as.Date(input$date1)
-fechaFin <- as.Date(input$date2)
-
-#Procesamiento de datos para fecha
-initData$month <- firstup(unique(tolower(initData$MONTH_)))
-conv <- data.frame(month = firstup(unique(tolower(initData$MONTH_))),
-                   monthNum = 1:length(firstup(unique(tolower(initData$MONTH_)))))
-initData <- merge(initData, 
-                  conv, 
-                  by = "month") 
-initData$date <- as.Date(paste(initData$ANO, 
-                               initData$monthNum, 
-                               "01", 
-                               sep = "/"), 
-                         format = "%Y/%m/%d")
-
-#Filtrado por fechas INICIAL
-#initData <- initData[initData$date <= as.Date("2011/04/02", format = "%Y/%m/%d"), ]
-#initData <- initData[initData$date <= fechaFin, ]
-
-
-
-#Filtrado por fechas
-initData <- initData[initData$date >= fechaIni, ]
-initData <- initData[initData$date <= fechaFin, ]
-
-if(!is.null(input$brand)){
-  
-  initData <- initData[(initData$MARCA %in% input$brand), ]
-  
-} 
-
-if(!is.null(input$department)){
-  
-  initData <- initData[(initData$DEPARTAMENTO %in% input$department), ]
-  
-} 
-
-if(!is.null(input$service)){
-  
-  initData <- initData[(initData$SERVICIO %in% input$service), ]
-  
+if((input$context) == "Petroleo (WTI)"){
+  source("petroleo_WTI.R", local = TRUE)
+  df1 <- df
+  nam <- c("Precio barril Petroleo WTI (USD/barril)", "Unidades vendidas", "Fuente: Yahoo.")
 }
 
-if (!is.null(input$status)){
-  
-  initData <- initData[(initData$STATUS %in% input$status), ]
-  
-} 
+if((input$context) == "Petroleo (Brent)"){
+  source("petroleo_Brent.R", local = TRUE)
+  df1 <- df
+  nam <- c("Precio barril Petroleo Brent (USD/barril)", "Unidades vendidas", "Fuente: Yahoo.")
+}
 
-if (!is.null(input$segment)){
-  
-  initData <- initData[(initData$SEGMENTO %in% input$segment), ]
-  
-} 
+if((input$context) == "Confianza"){
+  source("confianza.R", local = TRUE)
+  df1 <- df
+  nam <- c("ICC (%)", "Unidades vendidas", "Fuente: Fedesarrollo.")
+}
 
-if (!is.null(input$origin)){
-  
-  initData <- initData[(initData$NACIONAL_IMPORT %in% input$origin), ]
-  
-} 
-
-
+if((input$context) == "Desempleo"){
+  source("desempleo.R", local = TRUE)
+  df1 <- df
+  nam <- c("Desempleo (%)", "Unidades vendidas", "Fuente: Banco de la República.")
+}
 
 
-filter1 <- group_by(initData, ANO, monthNum)
-df <- summarise(filter1, cant = sum(CANTIDAD))
+if((input$context) == "Precipitacion"){
+  source("precipitacion.R", local = TRUE)
+  df1 <- df
+  nam <- c("Precipitacion (cc)", "Unidades vendidas", "Fuente: Ideam-Observatorio ambiental de Bogotá.")
+}
 
-graph3 <- ggplot(df, aes(x = monthNum, y = cant, color = factor(ANO))) + 
-  geom_line() + 
-  theme_bw() + 
-  labs(x = "Mes", y = "Autos vendidos", color = "Año")
+if((input$context) == "Gasolina"){
+  source("gasolina.R", local = TRUE)
+  df1 <- df
+  nam <- c("Valor galon gasolina (COP)", "Unidades vendidas", "Fuente: Sistema de
+           información de petróleo y gas colombiano (SIPG).")
+}
 
-graph3
 
+
+
+
+df <- doubleData()
+
+df2 <- merge(x = df1, y = df, by = "date", all.x = TRUE)
+
+
+#as.character(format(as.Date(df2$date,format="%Y-%m-%d"), "%d"))
+#which((as.character(format(as.Date(df2$date,format="%Y-%m-%d"), "%d"))) == "01")
+df2 <- df2[which((as.character(format(as.Date(df2$date,format="%Y-%m-%d"), "%d"))) == "01"), ]
+
+#df2
+#c("Dolar", "Petroleo", "Confianza", "Desempleo")
+
+
+source("doubleGraph.R", local = TRUE)
+
+
+
+graph3<- doubleGraph(df2, nam)

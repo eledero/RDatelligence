@@ -7,13 +7,17 @@
         # can happen when deployed).
         tempReport <- file.path(tempdir(), "report.Rmd")
         file.copy("report.Rmd", tempReport, overwrite = TRUE)
+        
+        
+        choices <- c(input$report1, input$report2, input$report3, input$report4)
         source("report1.R", local = TRUE)
         source("report2.R", local = TRUE)
         source("report3.R", local = TRUE)
+        source("report4.R", local = TRUE)
         # Set up parameters to pass to Rmd document
         
         opciones <- c(TRUE, FALSE, TRUE)
-        params <- list(show_text = FALSE, a = graph1, b = graph2, c = graph3, d = opciones)
+        params <- list(show_text = TRUE, choices = choices, a = graph1, b = graph2, c = graph3, d = graph4)
         
         # Knit the document, passing in the `params` list, and eval it in a
         # child of the global environment (this isolates the code in the document
