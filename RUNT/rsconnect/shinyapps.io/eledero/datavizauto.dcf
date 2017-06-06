@@ -3,8 +3,8 @@ title: DataVizAuto
 account: eledero
 server: shinyapps.io
 appId: 180064
-bundleId: 825258
+bundleId: 849812
 url: https://eledero.shinyapps.io/datavizauto/
-when: 1494561506.89858
+when: 1496365490.20512
 asMultiple: FALSE
 asStatic: FALSE

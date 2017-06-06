@@ -4,8 +4,35 @@ output: pdf_document
 params:
   n: NA
   a: NA
+  b: NA
+  c: NA
+  show_text: NA
 ---
 
+
+\begin{center}
+Text
+\end{center}
+
+
+
+
+```{r conditional_block, echo=FALSE, results='asis', eval=T}
+
+
+cat("
+
+
+
+## Hey look, a heading!
+lorem ipsum dolor emet...
+
+
+
+
+
+")
+```
 
 
 
@@ -13,5 +40,21 @@ params:
 library(ggplot2)
 #plot(rnorm(params$n), rnorm(params$n))
 
-params$a
+#params$a
+
+params$b
+
+#params$c
+```
+
+
+```{r, eval=T, echo=F}
+library(ggplot2)
+#plot(rnorm(params$n), rnorm(params$n))
+
+#params$a
+
+#params$b
+
+params$c
 ```

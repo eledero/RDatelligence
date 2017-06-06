@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>  <script type="application/shiny-singletons"></script>  <script type="application/html-dependencies">json2[2014.02.04];jquery[1.12.4];shiny[1.0.1];bootstrap-datepicker[1.6.4];selectize[0.11.2];font-awesome[4.7.0];bootstrap[3.3.7]</script><script src="shared/json2-min.js"></script>
+<script src="shared/jquery.min.js"></script>
+<link href="shared/shiny.css" rel="stylesheet" />
+<script src="shared/shiny.min.js"></script>
+<link href="shared/datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+<script src="shared/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script>
+(function() {
+  var datepicker = $.fn.datepicker.noConflict();
+  $.fn.bsDatepicker = datepicker;
+})();
+</script>
+<link href="shared/selectize/css/selectize.bootstrap3.css" rel="stylesheet" />
+<!--[if lt IE 9]>
+<script src="shared/selectize/js/es5-shim.min.js"></script>
+<![endif]-->
+<script src="shared/selectize/js/selectize.min.js"></script>
+<link href="shared/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="shared/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="shared/bootstrap/js/bootstrap.min.js"></script>
+<script src="shared/bootstrap/shim/html5shiv.min.js"></script>
+<script src="shared/bootstrap/shim/respond.min.js"></script>
+
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4">
+        <form class="well">
+          <div id="date1" class="shiny-date-input form-group shiny-input-container">
+            <label class="control-label" for="date1">Fecha de inicio del análisis:</label>
+            <input type="text" class="form-control" data-date-language="en" data-date-week-start="0" data-date-format="yyyy-mm-dd" data-date-start-view="month" data-initial-date="2010-01-01"/>
+          </div>
+          <div id="date2" class="shiny-date-input form-group shiny-input-container">
+            <label class="control-label" for="date2">Fecha de fin del análisis:</label>
+            <input type="text" class="form-control" data-date-language="en" data-date-week-start="0" data-date-format="yyyy-mm-dd" data-date-start-view="month" data-initial-date="2011-04-01"/>
+          </div>
+          <div class="form-group shiny-input-container">
+            <label class="control-label" for="field">Selecciona la variable:</label>
+            <div>
+              <select id="field"></select>
+              <script type="application/json" data-for="field" data-nonempty="">{}</script>
+            </div>
+          </div>
+          <div class="form-group shiny-input-container">
+            <label class="control-label" for="brand">Marca(s)</label>
+            <div>
+              <select id="brand" class="form-control" multiple="multiple"></select>
+              <script type="application/json" data-for="brand">{"maxItems":5}</script>
+            </div>
+          </div>
+          <div class="form-group shiny-input-container">
+            <label class="control-label" for="department">Departamento(s)</label>
+            <div>
+              <select id="department" class="form-control" multiple="multiple"></select>
+              <script type="application/json" data-for="department">{"maxItems":5}</script>
+            </div>
+          </div>
+          <div class="form-group shiny-input-container">
+            <label class="control-label" for="service">Servicios</label>
+            <div>
+              <select id="service" class="form-control" multiple="multiple"></select>
+              <script type="application/json" data-for="service">{"maxItems":5}</script>
+            </div>
+          </div>
+          <div class="form-group shiny-input-container">
+            <label class="control-label" for="status">Status</label>
+            <div>
+              <select id="status" class="form-control" multiple="multiple"></select>
+              <script type="application/json" data-for="status">{"maxItems":5}</script>
+            </div>
+          </div>
+          <div class="form-group shiny-input-container">
+            <label class="control-label" for="segment">Segmento</label>
+            <div>
+              <select id="segment" class="form-control" multiple="multiple"></select>
+              <script type="application/json" data-for="segment">{"maxItems":5}</script>
+            </div>
+          </div>
+          <div class="form-group shiny-input-container">
+            <label class="control-label" for="origin">Origen</label>
+            <div>
+              <select id="origin" class="form-control" multiple="multiple"></select>
+              <script type="application/json" data-for="origin">{"maxItems":5}</script>
+            </div>
+          </div>
+          <div class="form-group shiny-input-container">
+            <label class="control-label" for="context">Variable de contexto</label>
+            <div>
+              <select id="context"><option value="Dolar" selected>Dolar</option>
+<option value="Gasolina">Gasolina</option>
+<option value="Petroleo (WTI)">Petroleo (WTI)</option>
+<option value="Petroleo (Brent)">Petroleo (Brent)</option>
+<option value="Confianza">Confianza</option>
+<option value="Desempleo">Desempleo</option>
+<option value="Precipitacion">Precipitacion</option></select>
+              <script type="application/json" data-for="context" data-nonempty="">{}</script>
+            </div>
+          </div>
+          <hr/>
+        </form>
+      </div>
+      <div class="col-sm-8">
+        <div class="col-sm-8">
+          <div class="tabbable">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a href="#tab-6701-1" data-toggle="tab" data-value="Market Share">Market Share</a>
+              </li>
+              <li>
+                <a href="#tab-6701-2" data-toggle="tab" data-value="Genere su reporte">Genere su reporte</a>
+              </li>
+              <li>
+                <a href="#tab-6701-3" data-toggle="tab" data-value="Evolución">Evolución</a>
+              </li>
+              <li>
+                <a href="#tab-6701-4" data-toggle="tab" data-value="Contexto">Contexto</a>
+              </li>
+              <li>
+                <a href="#tab-6701-5" data-toggle="tab" data-value="Variación">Variación</a>
+              </li>
+              <li>
+                <a href="#tab-6701-6" data-toggle="tab" data-value="Tabla original">Tabla original</a>
+              </li>
+              <li>
+                <a href="#tab-6701-7" data-toggle="tab" data-value="Summary">Summary</a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" data-value="Market Share" id="tab-6701-1">
+                <div id="Plot2" class="shiny-plot-output" style="width: 600px ; height: 400px"></div>
+                <a id="report" class="btn btn-default shiny-download-link " href="" target="_blank" download>
+                  <i class="fa fa-download"></i>
+                  Generar reporte
+                </a>
+                <div id="table2" class="shiny-html-output"></div>
+              </div>
+              <div class="tab-pane" data-value="Genere su reporte" id="tab-6701-2">
+                <a id="report" class="btn btn-default shiny-download-link " href="" target="_blank" download>
+                  <i class="fa fa-download"></i>
+                  Generar reporte
+                </a>
+              </div>
+              <div class="tab-pane" data-value="Evolución" id="tab-6701-3">
+                <div id="Plot1" class="shiny-plot-output" style="width: 600px ; height: 400px"></div>
+              </div>
+              <div class="tab-pane" data-value="Contexto" id="tab-6701-4">
+                <div id="Plot3" class="shiny-plot-output" style="width: 600px ; height: 400px"></div>
+              </div>
+              <div class="tab-pane" data-value="Variación" id="tab-6701-5">
+                <div id="Plot4" class="shiny-plot-output" style="width: 600px ; height: 400px"></div>
+              </div>
+              <div class="tab-pane" data-value="Tabla original" id="tab-6701-6">
+                <div id="table1" class="shiny-html-output"></div>
+              </div>
+              <div class="tab-pane" data-value="Summary" id="tab-6701-7">
+                <pre id="textie" class="shiny-text-output noplaceholder"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <style type="text/css">
+          .shiny-output-error { visibility: hidden; }
+          .shiny-output-error:before { visibility: hidden; }
+        </style>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

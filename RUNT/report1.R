@@ -1,4 +1,4 @@
-
+#Reporte de Market Share
 
 initData <- dataGen()[[1]]
 nam <- data.frame(nombres())
