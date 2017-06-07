@@ -1,5 +1,5 @@
 ---
-title: "Reporte DataViz"
+title: "Visualización DataViz"
 output: pdf_document
 params:
   n: NA
@@ -18,19 +18,19 @@ params:
 
 library(ggplot2)
 if(params$choices[1] == "1. Market Share"){
-cat("## Reporte de Market Share")
+cat("## Visualización de Market Share")
 cat("\n")
 params$a
 } else if(params$choices[1] == "2. Evolucion"){
-cat("## Reporte de Evolución")
+cat("## Visualización de Evolución")
 cat("\n")
 params$b  
 } else if(params$choices[1] == "3. Contexto"){ 
-cat("## Reporte de Contexto")
+cat("## Visualización de Contexto")
 cat("\n")
 params$c
 } else if(params$choices[1] == "4. Variacion"){
-cat("## Reporte de Variación")
+cat("## Visualización de Variación")
 cat("\n")
 params$d 
 }
@@ -47,19 +47,19 @@ cat("\n")
 
 library(ggplot2)
 if(params$choices[2] == "1. Market Share"){
-cat("## Reporte de Market Share")
+cat("## Visualización de Market Share")
 cat("\n")
 params$a
 } else if(params$choices[2] == "2. Evolucion"){
-cat("## Reporte de Evolución")
+cat("## Visualización de Evolución")
 cat("\n")
 params$b  
 } else if(params$choices[2] == "3. Contexto"){ 
-cat("## Reporte de Contexto")
+cat("## Visualización de Contexto")
 cat("\n")
 params$c
 } else if(params$choices[2] == "4. Variacion"){
-cat("## Reporte de Variación")
+cat("## Visualización de Variación")
 cat("\n")
 params$d 
 }
@@ -76,19 +76,19 @@ cat("\n")
 
 library(ggplot2)
 if(params$choices[3] == "1. Market Share"){
-cat("## Reporte de Market Share")
+cat("## Visualización de Market Share")
 cat("\n")
 params$a
 } else if(params$choices[3] == "2. Evolucion"){
-cat("## Reporte de Evolución")
+cat("## Visualización de Evolución")
 cat("\n")
 params$b  
 } else if(params$choices[3] == "3. Contexto"){ 
-cat("## Reporte de Contexto")
+cat("## Visualización de Contexto")
 cat("\n")
 params$c
 } else if(params$choices[3] == "4. Variacion"){
-cat("## Reporte de Variación")
+cat("## Visualización de Variación")
 cat("\n")
 params$d 
 }
@@ -105,19 +105,19 @@ cat("\n")
 
 library(ggplot2)
 if(params$choices[4] == "1. Market Share"){
-cat("## Reporte de Market Share")
+cat("## Visualización de Market Share")
 cat("\n")
 params$a
 } else if(params$choices[4] == "2. Evolucion"){
-cat("## Reporte de Evolución")
+cat("## Visualización de Evolución")
 cat("\n")
 params$b  
 } else if(params$choices[4] == "3. Contexto"){ 
-cat("## Reporte de Contexto")
+cat("## Visualización de Contexto")
 cat("\n")
 params$c
 } else if(params$choices[4] == "4. Variacion"){
-cat("## Reporte de Variación")
+cat("## Visualización de Variación")
 cat("\n")
 params$d 
 }
