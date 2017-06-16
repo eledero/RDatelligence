@@ -1,4 +1,4 @@
-dataGen <- reactive({ 
+dataGen1 <- reactive({ 
   
   initData <- filedata()
   
@@ -9,8 +9,8 @@ dataGen <- reactive({
   }
   
   #Fechas inicial y final
-  fechaIni <- as.Date(input$date1)
-  fechaFin <- as.Date(input$date2)
+  fechaIni <- as.Date(params()[[1]][[3]])
+  fechaFin <- as.Date(params()[[1]][[4]])
   
   #Procesamiento de datos para fecha
   initData$month <- firstup(unique(tolower(initData$MONTH_)))
@@ -26,42 +26,44 @@ dataGen <- reactive({
   initData <- initData[initData$date >= fechaIni, ]
   initData <- initData[initData$date <= fechaFin, ]
   
-  if(!is.null(input$brand)){
+  if(!is.null(params()[[1]][[6]])){
     
-    initData <- initData[(initData$MARCA %in% input$brand), ]
-    
-  } 
-  
-  if(!is.null(input$department)){
-    
-    initData <- initData[(initData$DEPARTAMENTO %in% input$department), ]
+    initData <- initData[(initData$MARCA %in% params()[[1]][[6]]), ]
     
   } 
   
-  if(!is.null(input$service)){
+  if(!is.null(params()[[1]][[7]])){
     
-    initData <- initData[(initData$SERVICIO %in% input$service), ]
+    initData <- initData[(initData$DEPARTAMENTO %in% params()[[1]][[7]]), ]
+    
+  } 
+  
+  if(!is.null(params()[[1]][[8]])){
+    
+    initData <- initData[(initData$SERVICIO %in% params()[[1]][[8]]), ]
     
   }
   
-  if (!is.null(input$status)){
+  if (!is.null(params()[[1]][[9]])){
     
-    initData <- initData[(initData$STATUS %in% input$status), ]
-    
-  } 
-  
-  if (!is.null(input$segment)){
-    
-    initData <- initData[(initData$SEGMENTO %in% input$segment), ]
+    initData <- initData[(initData$STATUS %in% params()[[1]][[9]]), ]
     
   } 
   
-  if (!is.null(input$origin)){
+  if (!is.null(params()[[1]][[10]])){
     
-    initData <- initData[(initData$NACIONAL_IMPORT %in% input$origin), ]
+    initData <- initData[(initData$SEGMENTO %in% params()[[1]][[10]]), ]
     
   } 
   
+  if (!is.null(params()[[1]][[1]])){
+    
+    initData <- initData[(initData$NACIONAL_IMPORT %in% params()[[1]][[1]]), ]
+    
+  } 
+  
+  #initData
   list(initData, unique(initData$MARCA), unique(initData$DEPARTAMENTO), unique(initData$SERVICIO), unique(initData$STATUS), unique(initData$SEGMENTO), unique(initData$NACIONAL_IMPORT))
   
 })
+

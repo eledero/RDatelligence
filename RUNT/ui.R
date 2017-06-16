@@ -23,55 +23,6 @@ shinyUI(
       selectizeInput("origin", "Origen", NULL, multiple = TRUE, options = list(maxItems = 5)),
       
       selectInput("context", "Variable de contexto", NULL, multiple = FALSE, choices = c("Dolar", "Gasolina", "Petroleo (WTI)", "Petroleo (Brent)", "Confianza", "Desempleo", "Precipitacion")),
-      #htmlOutput("field"),
-      #htmlOutput("brand"),
-      #htmlOutput("department"),
-      #htmlOutput("service"),
-      #htmlOutput("status"),
-      #htmlOutput("segment"),
-      #htmlOutput("origin"),
-      
-      #selectInput("field", 
-      #               "Campo a analizar", 
-      #               names(initData), 
-      #               multiple = FALSE
-      #            ),
-      
-      #selectizeInput("brand", 
-      #               "Marca(s)", 
-      #              initData$MARCA, 
-      #              multiple = TRUE,
-      #              options = list(maxItems = 5)),
-      
-      #selectizeInput("department", 
-      #               "Departamento(s)", 
-      #               initData$DEPARTAMENTO, 
-      #               multiple = TRUE,
-      #               options = list(maxItems = 5)),
-      
-      #selectizeInput("service", 
-      #               "Servicios", 
-      #               initData$SERVICIO, 
-      #               multiple = TRUE,
-      #               options = list(maxItems = 5)),
-      
-      #selectizeInput("status", 
-      #               "Status", 
-      #               initData$STATUS, 
-      #               multiple = TRUE,
-      #               options = list(maxItems = 5)),
-      
-      #selectizeInput("segment", 
-      #               "Segmento", 
-      #               initData$SEGMENTO, 
-      #               multiple = TRUE,
-      #               options = list(maxItems = 5)),
-      
-      #selectizeInput("origin", 
-      #               "Origen", 
-      #               initData$NACIONAL_IMPORT, 
-      #               multiple = TRUE,
-      #               options = list(maxItems = 5)),
       
       tags$hr()
     ),
@@ -84,16 +35,22 @@ shinyUI(
         
         tabsetPanel(
           tabPanel("Market Share", plotOutput("Plot2", height = "400px", width = "600px"), tableOutput("table2")),
-          tabPanel("Genere su reporte", selectInput("report1", "Selecciona la visualización # 1:", NULL, multiple = FALSE),
+          tabPanel("Genere su reporte",
+                   h3("________________________________________________________________"),
+                   selectInput("report1", "Selecciona la visualización # 1:", NULL, multiple = FALSE),
+                   actionButton("goButton1", "Capturar filtro para visualización 1"),
+                   h3("________________________________________________________________"),
+                   
                    selectInput("report2", "Selecciona la visualización # 2:", NULL, multiple = FALSE), 
-                   selectInput("report3", "Selecciona la visualización # 3:", NULL, multiple = FALSE),
-                   selectInput("report4", "Selecciona la visualización # 4:", NULL, multiple = FALSE), 
+                   actionButton("goButton2", "Capturar filtro para visualización 2"),
+                   h3("________________________________________________________________"),
+                   
                    downloadButton("report", "Generar reporte")),
           tabPanel("Evolución", plotOutput("Plot1", height = "400px", width = "600px")), 
           tabPanel("Contexto", plotOutput("Plot3", height = "400px", width = "600px")),
           tabPanel("Variación", plotOutput("Plot4", height = "400px", width = "600px")),
           tabPanel("Tabla original", tableOutput("table1")),
-          tabPanel("Summary", verbatimTextOutput("textie"))
+          tabPanel("Summary", verbatimTextOutput("textie"),  plotOutput("Plot_1", height = "400px", width = "600px"))
           
         )
       ),

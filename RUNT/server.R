@@ -21,6 +21,9 @@ shinyServer(function(input, output, session) {
   source("variation.R", local = TRUE)
   source("varGraph.R", local = TRUE)
   source("report.R", local = TRUE)
+  source("params.R", local = TRUE)
+  source("rep_1.R", local = TRUE)
+  #source("reportes.R", local = TRUE)
   
   
   
