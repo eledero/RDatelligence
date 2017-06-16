@@ -26,8 +26,9 @@
         
         
         gr1 <- graph1()
+        gr2 <- graph2()
         opciones <- c(TRUE, FALSE, TRUE)
-        params <- list(show_text = TRUE, choices = choices, a = gr1)
+        params <- list(show_text = TRUE, choices = choices, a = gr1, b = gr2)
         
         # Knit the document, passing in the `params` list, and eval it in a
         # child of the global environment (this isolates the code in the document

@@ -14,7 +14,7 @@ params:
 
 
 
-```{r conditional_block, echo=FALSE, results='asis', eval=params$show_text}
+```{r conditional_block1, echo=FALSE, results='asis', eval=params$show_text}
 
 library(ggplot2)
 if(params$choices[1] == "1. Market Share"){
@@ -38,6 +38,35 @@ params$a
 
 ```
 
-```{r conditional_block1, echo=FALSE, results='asis', eval=params$show_text}
+```{r conditional_block2, echo=FALSE, results='asis', eval=params$show_text}
+cat("\n")
+```
+
+
+```{r conditional_block3, echo=FALSE, results='asis', eval=params$show_text}
+
+library(ggplot2)
+if(params$choices[2] == "1. Market Share"){
+cat("## Visualización de Market Share")
+cat("\n")
+params$b
+} else if(params$choices[2] == "2. Evolucion"){
+cat("## Visualización de Evolución")
+cat("\n")
+params$b  
+} else if(params$choices[2] == "3. Contexto"){ 
+cat("## Visualización de Contexto")
+cat("\n")
+params$b
+} else if(params$choices[2] == "4. Variacion"){
+cat("## Visualización de Variación")
+cat("\n")
+params$b 
+}
+
+
+```
+
+```{r conditional_block4, echo=FALSE, results='asis', eval=params$show_text}
 cat("\n")
 ```

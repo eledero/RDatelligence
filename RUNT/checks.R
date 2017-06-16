@@ -15,7 +15,7 @@ output$textie <- renderPrint({
 
 output$Plot_1 <- renderPlot({
   
-  graph1()
+  graph2()
   
 })
 
