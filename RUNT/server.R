@@ -24,6 +24,7 @@ shinyServer(function(input, output, session) {
   source("params.R", local = TRUE)
   source("rep_1.R", local = TRUE)
   source("rep_2.R", local = TRUE)
+  source("rep_3.R", local = TRUE)
   #source("reportes.R", local = TRUE)
   
   

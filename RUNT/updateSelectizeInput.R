@@ -7,3 +7,4 @@ updateSelectizeInput(session, "segment", choices = read.csv("base_runt.csv", sep
 updateSelectizeInput(session, "origin", choices = read.csv("base_runt.csv", sep = ";")[, "NACIONAL_IMPORT"], server = TRUE)
 updateSelectizeInput(session, "report1", choices = read.csv("selects.csv")[, 1], server = TRUE)
 updateSelectizeInput(session, "report2", choices = read.csv("selects.csv")[, 1], server = TRUE)
+updateSelectizeInput(session, "report3", choices = read.csv("selects.csv")[, 1], server = TRUE)

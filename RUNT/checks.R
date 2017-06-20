@@ -7,18 +7,23 @@ output$textie <- renderPrint({
   #params()
   #dataGen1()[[1]]
   #dataGen1()[[1]]
-  "Hola"
+  input$big_box1
   #params()[[1]]
   #checkie()
 })
 
 
 output$Plot_1 <- renderPlot({
-  
-  graph2()
-  
+  graph1()
 })
 
+output$Plot_2 <- renderPlot({
+  graph2()
+})
+
+output$Plot_3 <- renderPlot({
+  graph3()
+})
 
 
 output$table1 <- renderTable({

@@ -40,13 +40,36 @@ actionButton2 <- eventReactive(input$goButton2, {
 )
 
 
+actionButton3 <- eventReactive(input$goButton3, {
+  params1 <- list(a =input$origin, #1
+                  b = input$context, #2
+                  c = input$date1, #3
+                  d = input$date2, #4
+                  e = input$field, #5
+                  f = input$brand, #6
+                  g = input$department, #7
+                  h = input$service,#8
+                  i = input$status, #9
+                  j = input$segment) #10
+  params1
+}
+
+, ignoreNULL = FALSE
+
+)
+
+
+
 params <- reactive({ 
   
   
   elem1 <- actionButton1()
   elem2 <- actionButton2()
+  elem3 <- actionButton3()
   
-  paramets <- list(a1 = elem1, a2 = elem2)
+  paramets <- list(a1 = elem1,
+                   a2 = elem2,
+                   a3 = elem3)
   
   paramets
   }  )

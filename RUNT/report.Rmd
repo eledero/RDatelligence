@@ -9,64 +9,58 @@ params:
   d: NA
   show_text: NA
   choices: NA
+  titles: NA
+  bigBox: NA
 ---
 
 
 
 
-```{r conditional_block1, echo=FALSE, results='asis', eval=params$show_text}
+```{r, title1, echo=FALSE, results='asis', eval=params$show_text}
+cat(params$titles[1])
+```
 
+```{r graph1, echo=FALSE, results='asis', eval=params$show_text}
 library(ggplot2)
-if(params$choices[1] == "1. Market Share"){
-cat("## Visualización de Market Share")
-cat("\n")
 params$a
-} else if(params$choices[1] == "2. Evolucion"){
-cat("## Visualización de Evolución")
-cat("\n")
-params$a  
-} else if(params$choices[1] == "3. Contexto"){ 
-cat("## Visualización de Contexto")
-cat("\n")
-params$a
-} else if(params$choices[1] == "4. Variacion"){
-cat("## Visualización de Variación")
-cat("\n")
-params$a 
-}
-
-
 ```
 
-```{r conditional_block2, echo=FALSE, results='asis', eval=params$show_text}
+```{r comm1, echo=FALSE, results='asis', eval=params$show_text}
+cat(params$bigBox[1])
 cat("\n")
 ```
 
+\pagebreak
 
-```{r conditional_block3, echo=FALSE, results='asis', eval=params$show_text}
 
+
+
+```{r, title2, echo=FALSE, results='asis', eval=params$show_text}
+ cat(params$titles[2])
+```
+
+```{r graph2, echo=FALSE, results='asis', eval=params$show_text}
 library(ggplot2)
-if(params$choices[2] == "1. Market Share"){
-cat("## Visualización de Market Share")
-cat("\n")
 params$b
-} else if(params$choices[2] == "2. Evolucion"){
-cat("## Visualización de Evolución")
-cat("\n")
-params$b  
-} else if(params$choices[2] == "3. Contexto"){ 
-cat("## Visualización de Contexto")
-cat("\n")
-params$b
-} else if(params$choices[2] == "4. Variacion"){
-cat("## Visualización de Variación")
-cat("\n")
-params$b 
-}
-
-
 ```
 
-```{r conditional_block4, echo=FALSE, results='asis', eval=params$show_text}
+```{r comm2, echo=FALSE, results='asis', eval=params$show_text}
+cat(params$bigBox[2])
+cat("\n")
+```
+
+\pagebreak
+
+```{r, title3, echo=FALSE, results='asis', eval=params$show_text}
+ cat(params$titles[3])
+```
+
+```{r graph3, echo=FALSE, results='asis', eval=params$show_text}
+library(ggplot2)
+params$c
+```
+
+```{r comm3, echo=FALSE, results='asis', eval=params$show_text}
+cat(params$bigBox[3])
 cat("\n")
 ```

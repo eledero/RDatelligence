@@ -10,16 +10,17 @@
         
         
         choices <- c(input$report1,
+                     input$report2,
                      input$report2)
-        #,
-         #            input$report3,
-          #           input$report4,
-          #           input$report5,
-          #           input$report6,
-          #           input$report7,
-          #           input$report8,
-          #           input$report9,
-          #           input$report10)
+        
+        titles <- c(input$title_1, 
+                    input$title_2, 
+                    input$title_3)
+        
+        bigBox <- c(input$big_box1, 
+                      input$big_box2, 
+                      input$big_box3)
+        
         
         #source("rep_1.R", local = TRUE)
         # Set up parameters to pass to Rmd document
@@ -27,8 +28,16 @@
         
         gr1 <- graph1()
         gr2 <- graph2()
+        gr3 <- graph3()
         opciones <- c(TRUE, FALSE, TRUE)
-        params <- list(show_text = TRUE, choices = choices, a = gr1, b = gr2)
+        params <- list(show_text = TRUE, 
+                       choices = choices, 
+                       a = gr1,
+                       b = gr2,
+                       c = gr3,
+                       titles = titles,
+                       bigBox = bigBox
+                       )
         
         # Knit the document, passing in the `params` list, and eval it in a
         # child of the global environment (this isolates the code in the document
