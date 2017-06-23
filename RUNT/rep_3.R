@@ -308,7 +308,7 @@ graph3 <- reactive({
     
     
     
-    df <- doubleData()
+    df <- doubleData3()
     
     df2 <- merge(x = df1, y = df, by = "date", all.x = TRUE)
     

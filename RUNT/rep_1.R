@@ -308,7 +308,7 @@ if(input$report1 == "1. Market Share"){
   
   
   
-  df <- doubleData()
+  df <- doubleData1()
   
   df2 <- merge(x = df1, y = df, by = "date", all.x = TRUE)
   

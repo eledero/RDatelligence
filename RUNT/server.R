@@ -17,6 +17,9 @@ shinyServer(function(input, output, session) {
   source("checks.R", local = TRUE) #Tabla original y Summary
   source("updateSelectizeInput.R", local = TRUE) #Actualizaciones de los campos en los SelectizeInput
   source("doubleData.R", local = TRUE)
+  source("doubleData1.R", local = TRUE)
+  source("doubleData2.R", local = TRUE)
+  source("doubleData3.R", local = TRUE)
   source("doubleMerge.R", local = TRUE)
   source("variation.R", local = TRUE)
   source("varGraph.R", local = TRUE)
