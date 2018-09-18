@@ -8,34 +8,30 @@
                   tabPanel("Analisis temporal", 
                            
                            selectizeInput("state", "Escoja las variables (maximo 4):",
-                                          choices = c(" "),
-                                          options = list(maxItems = 4), 
-                                          multiple = TRUE
+                                          choices = c(" "),#Declarar que por defecto no se escoja ninguna variable desde el inicio
+                                          options = list(maxItems = 4), #Limita el número máximo de variables a escoger a 4
+                                          multiple = TRUE #Permitir escoger más de una variable
                                           
                            ), 
                            
-                           plotOutput("tempAnalysis")
+                           plotOutput("tempAnalysis") #Graficar análisis temporal
                            
                            ),
                   
-                  tabPanel("Analisis cruzado", 
+                  tabPanel("Analisis cruzado",
                            
-                           selectizeInput("state2", "Escoja las variables (maximo 2):",
-                                          choices = c(" "),
-                                          options = list(maxItems = 2), 
-                                          multiple = TRUE
+                           selectizeInput("state2", "Escoja las dos variables a analizar:",
+                                          choices = c(" "), #Declarar que por defecto no se escoja ninguna variable desde el inicio
+                                          options = list(maxItems = 2), #Limitar el número máximo de variables a escoger a 2
+                                          multiple = TRUE #Permitir escoger más de una variable
                                           
                            ),
-                           plotOutput("crossAnalysis")
                            
-                           
-                           
+                           plotOutput("crossAnalysis") #Graficar análisis cruzado
                            
                            )
-      )
-      
-      
-    ),
+                  )
+      ),
     
     
     server = function(input, output, session) {
@@ -45,60 +41,84 @@
       library(tidyr)
       library(ggrepel)
       
+      #Cargar y procesar de manera reactiva el archivo de datos
+      #(es decir, que si se cambia el archivo, todo lo demás se actualice en cascada)
+      
       initTable <- reactive({
-        #setwd("~/RDatelligence/CR")
-        initTable = read.csv(dir()[grepl("Costa", dir())]) %>%
-          gather(key, value, -X) %>%
-          arrange(key, X)
+        initTable = read.csv(dir()[grepl("Costa", dir())]) %>% #Leer el archivo
+          gather(key, value, -X) %>% #Poner los nombres de las columnas como valores de la variable "key"
+          arrange(key, X) #Ordenar por el nombre de la variable y lyego por el año
         
-        initTable$value = gsub(",", "", initTable$value) %>% 
-          as.numeric()
-        names(initTable) = c("Año", "Variable", "Valor")
+        initTable$value = gsub(",", "", initTable$value) %>% #Quitar las comas de algunos valores
+          as.numeric() #Colocar como de tipo numérico los valores
         
-        initTable
+        names(initTable) = c("Año", "Variable", "Valor") #Cambiar los nombres de las columnas
+        
+        initTable #Desplegar la tabla ya procesada
         
       })
       
-      output$graph1 = renderPlot({
-        
-        variables = c("Cienc.Salud.U.Pb", "Cienc.Soc.U.Pb")
-        ggplot(initTable[initTable$Variable %in% variables, ]) + aes(x = Año, y = Valor) + geom_line(aes(color = Variable)) + labs(x = "Año", y = "Valor", legend = "", title = "Evolución de variables.") + theme(legend.position="bottom", legend.box = "vertical", legend.title = element_blank())
-        
-        
-      })
+      
+      #Graficar el análisis temporal de manera reactiva
       
       output$tempAnalysis = renderPlot({
-        initTable = initTable()
-        variables = input$state
-        ggplot(initTable[initTable$Variable %in% variables, ]) + aes(x = Año, y = Valor) + geom_line(aes(color = Variable)) + labs(x = "Año", y = "Valor", legend = "", title = "Evolución de variables.") + theme(legend.position="bottom", legend.box = "vertical", legend.title = element_blank())
+        
+        initTable = initTable() #Carga la tabla ya procesada de manera reactiva
+        
+        variables = input$state #Extraer de la lista desplegable las variables a tener en cuenta
+        
+        ggplot(initTable[initTable$Variable %in% variables, ]) + aes(x = Año, y = Valor) + #Parámetros iniciales de la gráfica
+          geom_line(aes(color = Variable)) + #Estipular gráfico de línea
+          labs(x = "Año", y = "Valor", legend = "", title = "Evolución de variables.") + #Etiquetas
+          theme(legend.position="bottom", legend.box = "vertical", legend.title = element_blank()) #Estética general
         
       })
       
+      
+      #Graficar el análisis crzado de manera reactiva
       output$crossAnalysis = renderPlot({
-        initTable = initTable()
-        varScatter = input$state2
-        scatterData = cbind(initTable[which(initTable$Variable == varScatter[1]), ], initTable[which(initTable$Variable == varScatter[2]), "Valor"])
+        
+        initTable = initTable() #Carga la tabla ya procesada de manera reactiva
+        
+        varScatter = input$state2 #Extraer de la lista desplegable las variables a tener en cuenta
+        
+        #Prevenir que arroje un error debido a que sólo hay una variable para el análisis
+        if(length(varScatter) == 1){
+        
+            varScatter = NULL
+            
+        } 
+        
+        #Juntar los valores de las dos variables seleccionadas
+        scatterData = cbind(initTable[which(initTable$Variable == varScatter[1]), ], 
+                            initTable[which(initTable$Variable == varScatter[2]), "Valor"])
+        
+        #Ajustar los nombres de los campos según lo seleccionado
         names(scatterData) = c("Año", "key", varScatter[1], varScatter[2])
-        ggplot(scatterData, aes_string(varScatter[1], varScatter[2], label = "Año")) + geom_point() + geom_text_repel(size = 2.5) + labs(title = "Análisis cruzado de variables.")
+        
+        
+        ggplot(scatterData, aes_string(varScatter[1], varScatter[2], label = "Año")) + #Parámetros iniciales de la gráfica
+          geom_point() + #Estipular gráfico de dispersión
+          geom_text_repel(size = 2.5) + labs(title = "Análisis cruzado de variables.") #Estética general
         
         
       })
       
-      output$result <- renderPrint({
-        
-        str(input$state)
-      })
-      
+      #Cargar los valores posibles a escoger de las listas desplegables de manera reactiva
       observe({
         
-        newList = initTable()
+        #Leer los datos de la tabla inicial
+        newList = initTable() 
+        
+        #Actualizar los valores posibles a escoger
         
         updateSelectizeInput(session, "state",
                              choices = unique(newList$Variable)
-        )
+                             )
         
         updateSelectizeInput(session, "state2",
-                             choices = unique(newList$Variable))
+                             choices = unique(newList$Variable)
+                             )
         
       })
       
